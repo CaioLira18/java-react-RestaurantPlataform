@@ -23,8 +23,8 @@
 .headerContainer {
   display: flex;
   align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  justify-content: space-between;
+  margin: 20px;
 }
 
 .optionsHeader ul {
@@ -41,6 +41,7 @@
   justify-content: center;
   gap: 10px;
   transition: 0.3s all ease-in-out;
+  cursor: pointer;
 }
 
 .optionsHeader ul li a {

@@ -15,16 +15,16 @@ const Header = () => {
                     <li><a href="">Home</a></li>
                 </div>
                 <div className="optionIndividual">
-                    <i class="fa-solid fa-basket-shopping"></i>
-                    <li><a href="">Produtos</a></li>
-                </div>
-                <div className="optionIndividual">
                     <i class="fa-solid fa-clipboard-list"></i>
                     <li><a href="">Pedidos</a></li>
                 </div>
                 <div className="optionIndividual">
                     <i class="fa-solid fa-user"></i>
                     <li><a href="">Login</a></li>
+                </div>
+                <div className="optionIndividual">
+                    <i class="fa-solid fa-basket-shopping"></i>
+                    <li><a href="">Carrinho 0x</a></li>
                 </div>
                 </ul>
             </div>
