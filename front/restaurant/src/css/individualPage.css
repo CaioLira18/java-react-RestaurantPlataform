@@ -1,0 +1,14 @@
+.itemPageContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.itemPageContainer img {
+    width: 70px;
+}
+
+.itemPageIndividual {
+    margin-top: 100px;
+}

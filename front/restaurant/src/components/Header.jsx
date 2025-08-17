@@ -68,12 +68,14 @@ const Header = () => {
             <ul>
               <div className="optionIndividual">
                 <i className="fa-solid fa-house"></i>
-                <li><a href="">Home</a></li>
+                <li><a href="/">Home</a></li>
               </div>
-              <div className="optionIndividual">
-                <i className="fa-solid fa-clipboard-list"></i>
-                <li><a href="">Pedidos</a></li>
-              </div>
+              {isAdmin && (
+                <div className="optionIndividual">
+                  <i className="fa-solid fa-clipboard-list"></i>
+                  <li><a href="/pedidos">Pedidos</a></li>
+                </div>
+              )}
               {!isAuthenticated && (
                 <div className="optionIndividual">
                   <i className="fa-solid fa-user"></i>

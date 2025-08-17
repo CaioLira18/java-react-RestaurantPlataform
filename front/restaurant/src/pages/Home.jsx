@@ -58,6 +58,17 @@ const Home = () => {
 
   return (
     <div>
+
+      {!isAdmin && (
+        <div className="adminButtons">
+          <button>Adicionar Produto</button>
+        </div>
+      )}
+
+      <div className="itemCabecalho">
+        <h1>Hambúrgueres</h1>
+        <a href="/hamburguers">Ver tudo</a>
+      </div>
       {items.map((item) => (
         <div key={item.id} className="itemContainer">
           <div className="itemBox">

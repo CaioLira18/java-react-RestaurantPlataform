@@ -1,5 +1,6 @@
 package br.com.restaurant.backend.entities;
 
+import br.com.restaurant.backend.entities.enums.ItemType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,5 +23,6 @@ public class Item {
     private String name;
     private String price;
     private String description;
+    private ItemType type; 
 
 }
