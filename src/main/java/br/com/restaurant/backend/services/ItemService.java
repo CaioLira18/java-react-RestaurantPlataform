@@ -2,8 +2,10 @@ package br.com.restaurant.backend.services;
 
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import br.com.restaurant.backend.entities.Item;
 import br.com.restaurant.backend.repository.ItemRepository;
 
@@ -29,6 +31,7 @@ public class ItemService {
     public Optional<Item> updateItem(String id, Item updatedItem) {
         return itemRepository.findById(id).map(item -> {
             item.setName(updatedItem.getName());
+            item.setImage(updatedItem.getImage());
             item.setPrice(updatedItem.getPrice());
             item.setDescription(updatedItem.getDescription());
 

@@ -18,6 +18,7 @@ public class Item {
     @GeneratedValue(strategy=GenerationType.UUID)
     private String id;
 
+    private String image;
     private String name;
     private String price;
     private String description;
