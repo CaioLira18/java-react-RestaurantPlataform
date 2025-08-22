@@ -96,7 +96,7 @@ const Header = () => {
               )}
               <div className="optionIndividual">
                 <i className="fa-solid fa-basket-shopping"></i>
-                <li><a href="">Carrinho 0x</a></li>
+                <li><a href="/carrinho">Carrinho 0x</a></li>
               </div>
             </ul>
           </div>

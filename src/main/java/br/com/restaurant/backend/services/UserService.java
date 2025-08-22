@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import br.com.restaurant.backend.entities.Item;
 import br.com.restaurant.backend.entities.User;
+import br.com.restaurant.backend.repository.ItemRepository;
 import br.com.restaurant.backend.repository.UserRepository;
 
 @Service
@@ -15,6 +17,9 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ItemRepository itemRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -53,5 +58,41 @@ public class UserService {
             userRepository.delete(user);
             return true;
         }).orElse(false);
+    }
+
+    public Optional<User> addItemToCart(String userId, String itemId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        Optional<Item> itemOptional = itemRepository.findById(itemId);
+
+        if (userOptional.isPresent() && itemOptional.isPresent()) {
+            User user = userOptional.get();
+            Item item = itemOptional.get();
+
+            if (!user.getCarrrinho().contains(item)) {
+                user.getCarrrinho().add(item);
+                User savedUser = userRepository.save(user);
+                return Optional.of(savedUser);
+            }
+        }
+
+        return Optional.empty();
+    }
+
+    public Optional<User> removeItemFromCart(String userId, String itemId) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            List<Item> carrinho = user.getCarrrinho();
+
+            // Remove o item do carrinho
+            carrinho.removeIf(item -> item.getId().equals(itemId));
+
+            user.setCarrrinho(carrinho);
+            User savedUser = userRepository.save(user);
+            return Optional.of(savedUser);
+        }
+
+        return Optional.empty();
     }
 }

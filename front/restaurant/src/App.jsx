@@ -4,6 +4,7 @@ import Header from './components/Header'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Hamburgers from './pages/foodPages/Hamburgers'
+import Cart from './pages/Cart'
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/hamburguers" element={<Hamburgers />} />
+        <Route path="/carrinho" element={<Cart />} />
       </Routes>
     </div>
   )

@@ -1,0 +1,114 @@
+.cart {
+    padding: 40px;
+}
+
+.headerCart {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.headerCart img {
+    width: 60px;
+}
+
+.cartContainer {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    margin-top: 100px;
+}
+
+.cartItem {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 20px;
+    width: 600px;
+    border: 2px solid wheat;
+    border-radius: 10px;
+}
+
+.cartItem img {
+    width: 150px;
+    border-radius: 10px;
+}
+
+.productInformation {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+}
+
+.removeButton {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.removeButton button {
+    width: 100%;
+    height: 40px;
+    background-color: brown;
+    border: none;
+    border-radius: 20px;
+    transition: 0.3s all ease-in-out;
+    cursor: pointer;
+}
+
+.removeButton button:hover {
+    background-color: rgb(173, 89, 89);
+}
+
+.buttonRemove {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-weight: bold;
+}
+
+.informationsTotal {
+    display: flex;
+    justify-content: left;
+    flex-direction: column;
+    margin-top: 100px;
+}
+
+.informationsTotal h1 {
+    font-size: 20px;
+}
+
+.checkoutButton {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.checkoutButton button {
+    width: 270px;
+    height: 40px;
+    margin-top: 20px;
+    background-color: rgb(98, 132, 255);
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.3s all ease-in-out;
+}
+
+.checkoutButton button:hover {
+    background-color: aquamarine;
+    color: #000;
+}
+
+.emptyCart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 20px;
+    margin-top: 200px;
+}

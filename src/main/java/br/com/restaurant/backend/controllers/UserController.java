@@ -57,4 +57,16 @@ public class UserController {
         boolean deleted = userService.deleteUser(id);
         return deleted ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     }
+
+    @PostMapping("/{userId}/carrinho/{itemId}")
+    public ResponseEntity<User> addItemToCart(@PathVariable String userId, @PathVariable String itemId) {
+        Optional<User> updatedUser = userService.addItemToCart(userId, itemId);
+        return updatedUser.map(ResponseEntity::ok).orElse(ResponseEntity.badRequest().build());
+    }
+
+    @DeleteMapping("/{userId}/carrinho/{itemId}")
+    public ResponseEntity<User> removeItemFromCart(@PathVariable String userId, @PathVariable String itemId) {
+        Optional<User> updatedUser = userService.removeItemFromCart(userId, itemId);
+        return updatedUser.map(ResponseEntity::ok).orElse(ResponseEntity.badRequest().build());
+    }
 }

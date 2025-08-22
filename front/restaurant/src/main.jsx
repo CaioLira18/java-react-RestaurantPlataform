@@ -4,6 +4,8 @@ import './index.css'
 import './css/login.css'
 import './css/home.css'
 import './css/individualPage.css'
+import './css/cart.css'
+
 
 
 import App from './App.jsx'
