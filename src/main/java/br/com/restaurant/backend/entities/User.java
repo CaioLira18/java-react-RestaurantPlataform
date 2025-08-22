@@ -19,10 +19,10 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name="tb_user")
+@Table(name = "tb_user")
 public class User {
     @Id
-    @GeneratedValue(strategy= GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
     private UserRole role;
@@ -32,11 +32,6 @@ public class User {
     private String password;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-        name = "tb_user_carrrinho",
-        joinColumns = @JoinColumn(name = "user_id"),
-        inverseJoinColumns = @JoinColumn(name = "carrrinho_id")
-    )
-    
-    private List<Item> carrrinho = new ArrayList<>();
+    @JoinTable(name = "tb_user_carrrinho", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "carrrinho_id"))
+    private List<Item> carrinho = new ArrayList<>();
 }

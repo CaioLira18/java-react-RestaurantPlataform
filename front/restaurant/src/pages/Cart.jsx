@@ -60,8 +60,11 @@ const Cart = () => {
 
     const removeFromCart = async (itemId) => {
         console.log('🗑️ Tentando remover item com ID:', itemId);
+        console.log('👤 ID do usuário:', userId);
         
         try {
+            // Remove do estado local primeiro (para UX mais rápida)
+            const originalCart = [...listFavorites]; // Salva o estado original
             const updatedCart = listFavorites.filter(item => item.id !== itemId);
             setListFavorites(updatedCart);
 
@@ -72,38 +75,48 @@ const Cart = () => {
                 }
             });
 
+            console.log('📡 Status da resposta:', response.status);
+
             if (!response.ok) {
                 // Se a requisição falhar, reverte o estado local
-                setListFavorites(listFavorites);
-                console.error('Erro ao remover item do carrinho - Status:', response.status);
-                alert('Erro ao remover item do carrinho');
+                console.error('❌ Erro ao remover item do carrinho - Status:', response.status);
+                setListFavorites(originalCart); // Reverte para o estado original
+                alert(`Erro ao remover item do carrinho (${response.status})`);
             } else {
-                console.log('Item removido do carrinho com sucesso');
-
+                // Verifica se realmente foi removido no backend
+                const updatedUser = await response.json();
+                console.log('✅ Resposta do servidor:', updatedUser);
+                console.log('📦 Carrinho atualizado no servidor:', updatedUser.carrinho);
+                
+                // Atualiza com os dados reais do servidor
+                setListFavorites(updatedUser.carrinho || []);
+                
                 // Atualiza o localStorage também
                 const storedUser = localStorage.getItem('user');
                 if (storedUser) {
                     try {
                         const parsedUser = JSON.parse(storedUser);
-                        const updatedUser = {
+                        const updatedUserData = {
                             ...parsedUser,
-                            carrinho: updatedCart
+                            carrinho: updatedUser.carrinho || []
                         };
-                        localStorage.setItem('user', JSON.stringify(updatedUser));
+                        localStorage.setItem('user', JSON.stringify(updatedUserData));
+                        console.log('💾 localStorage atualizado');
                     } catch (error) {
-                        console.error('Erro ao atualizar localStorage:', error);
+                        console.error('❌ Erro ao atualizar localStorage:', error);
                     }
                 }
+                
+                console.log('🎉 Item removido do carrinho com sucesso!');
             }
         } catch (error) {
             // Se houver erro, reverte o estado local
-            setListFavorites(listFavorites);
-            console.error('Erro ao remover item:', error);
+            console.error('❌ Erro ao remover item:', error);
+            setListFavorites(originalCart); // Reverte para o estado original
             alert('Erro de conexão ao remover item do carrinho');
         }
     };
 
-    // Função para calcular o total do carrinho
     const calculateTotal = () => {
         return listFavorites.reduce((total, item) => {
             const price = parseFloat(item.price) || 0;

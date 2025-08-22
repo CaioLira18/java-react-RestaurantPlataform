@@ -68,8 +68,8 @@ public class UserService {
             User user = userOptional.get();
             Item item = itemOptional.get();
 
-            if (!user.getCarrrinho().contains(item)) {
-                user.getCarrrinho().add(item);
+            if (!user.getCarrinho().contains(item)) {
+                user.getCarrinho().add(item);
                 User savedUser = userRepository.save(user);
                 return Optional.of(savedUser);
             }
@@ -80,19 +80,30 @@ public class UserService {
 
     public Optional<User> removeItemFromCart(String userId, String itemId) {
         Optional<User> optionalUser = userRepository.findById(userId);
-
+        
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
-            List<Item> carrinho = user.getCarrrinho();
-
-            // Remove o item do carrinho
-            carrinho.removeIf(item -> item.getId().equals(itemId));
-
-            user.setCarrrinho(carrinho);
-            User savedUser = userRepository.save(user);
-            return Optional.of(savedUser);
+            List<Item> carrinho = user.getCarrinho(); // ou getItems(), dependendo do seu modelo
+            
+            System.out.println("📦 Carrinho antes da remoção: " + carrinho.size() + " itens");
+            
+            // Remove o item do carrinho baseado no ID
+            boolean itemRemoved = carrinho.removeIf(item -> item.getId().equals(itemId));
+            
+            if (itemRemoved) {
+                System.out.println("✅ Item removido com sucesso");
+                System.out.println("📦 Carrinho após remoção: " + carrinho.size() + " itens");
+                
+                user.setCarrinho(carrinho);
+                User savedUser = userRepository.save(user);
+                return Optional.of(savedUser);
+            } else {
+                System.out.println("❌ Item não encontrado no carrinho");
+                return Optional.of(user); // Retorna o usuário mesmo se o item não for encontrado
+            }
         }
-
+        
+        System.out.println("❌ Usuário não encontrado");
         return Optional.empty();
     }
 }
