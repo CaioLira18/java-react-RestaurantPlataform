@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import Item from '../components/Item.jsx';
+import ItemComponent from "../components/ItemComponent";
+
 
 const Home = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -60,6 +61,60 @@ const Home = () => {
   }, [isAuthenticated]);
 
 
+  async function handleAddToList(item) {
+    if (!currentUser || !isAuthenticated) {
+      alert('Você precisa estar logado para adicionar itens ao carrinho!');
+      return;
+    }
+
+    try {
+      // Verificar se o item já existe no carrinho
+      const currentCart = currentUser.carrrinho || [];
+      const itemExists = currentCart.some(cartItem => cartItem.id === item.id);
+
+      if (itemExists) {
+        alert('Este item já está no seu carrinho!');
+        return;
+      }
+
+      // Usar o novo endpoint específico para carrinho
+      const response = await fetch(`${API_URL}/users/${currentUser.id}/carrinho/${item.id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+
+      if (response.ok) {
+        const userUpdated = await response.json();
+
+        // Atualizar o estado local
+        setCurrentUser(userUpdated);
+
+        // Atualizar o localStorage também
+        const storedUser = JSON.parse(localStorage.getItem('user'));
+        localStorage.setItem('user', JSON.stringify({
+          ...storedUser,
+          carrrinho: userUpdated.carrrinho
+        }));
+
+        // Feedback para o usuário
+        alert(`${item.name} foi adicionado ao seu carrinho!`);
+        console.log('✅ Item adicionado ao carrinho:', item.name);
+
+      } else {
+        const errorText = await response.text();
+        throw new Error(`Erro ${response.status}: ${errorText}`);
+      }
+
+    } catch (error) {
+      console.error('Erro ao adicionar item ao carrinho:', error);
+      alert('Erro ao adicionar item ao carrinho. Tente novamente.');
+    }
+  }
+
+
+
   return (
     <div>
       {!isAdmin && (
@@ -72,6 +127,27 @@ const Home = () => {
         <h1>Hambúrgueres</h1>
         <a href="/hamburguers">Ver tudo</a>
       </div>
+
+
+      <div className="containerItem">
+        <ItemComponent
+          items={items.filter((item) => item.type === "HAMBURGUER")}
+          handleAddToList={handleAddToList}
+        />
+      </div>
+
+      <div className="itemCabecalho">
+        <h1>Acompanhamentos</h1>
+        <a href="/hamburguers">Ver tudo</a>
+      </div>
+
+      <div className="containerItem">
+        <ItemComponent
+          items={items.filter((item) => item.type === "SIDEDISH")}
+          handleAddToList={handleAddToList}
+        />
+      </div>
+
     </div>
   )
 }
