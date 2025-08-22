@@ -5,6 +5,8 @@ import './css/login.css'
 import './css/home.css'
 import './css/individualPage.css'
 import './css/cart.css'
+import './css/addProduct.css'
+
 
 
 

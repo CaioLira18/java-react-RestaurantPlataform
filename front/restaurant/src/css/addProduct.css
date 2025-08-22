@@ -1,0 +1,51 @@
+.containerItem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.textLogo {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 10px;
+}
+
+.inputBox {
+    margin-top: 50px;
+    gap: 20px;
+}
+
+.inputArea {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    gap: 10px;
+}
+
+.inputBox input {
+    width: 100%;
+    height: 40px;
+    border-radius: 20px;
+    color: #000;
+    background-color: white;
+    padding-left: 10px;
+}
+
+.addItemButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 60px;
+    padding: 20px;
+}
+
+.addItemButton button {
+    width: 100%;
+    height: 35px;
+    border-radius: 10px;
+    border: none;
+    background-color: white;
+    color: #000;
+}

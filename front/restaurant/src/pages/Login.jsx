@@ -98,7 +98,7 @@ const Login = () => {
             
             <div className="loginInput">
               <h1>Email</h1>
-              <div className="inputBox">
+              <div className="inputBoxLogin">
                 <input 
                   type="email" 
                   value={email}
@@ -110,7 +110,7 @@ const Login = () => {
             
             <div className="loginInput">
               <h1>Senha</h1>
-              <div className="inputBox">
+              <div className="inputBoxLogin">
                 <input 
                   type="password" 
                   value={password}

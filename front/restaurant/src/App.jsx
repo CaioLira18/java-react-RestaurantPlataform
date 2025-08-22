@@ -5,6 +5,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Hamburgers from './pages/foodPages/Hamburgers'
 import Cart from './pages/Cart'
+import AddProduct from './pages/AddProduct'
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/hamburguers" element={<Hamburgers />} />
         <Route path="/carrinho" element={<Cart />} />
+        <Route path="/adicionarItem" element={<AddProduct />} />
       </Routes>
     </div>
   )

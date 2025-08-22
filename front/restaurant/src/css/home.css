@@ -1,9 +1,21 @@
 .itemCabecalho {
-    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: left;
+    margin-left: 50px;
+    margin-top: 50px;
+}
+
+.itemCabecalho h1 {
+    font-size: 25px;
+    color: white;
 }
 
 .itemCabecalho a {
+    color: white;
     transition: 0.3s all ease-in-out;
+    font-size: 15px;
 }
 
 .itemCabecalho a:hover {
@@ -12,24 +24,20 @@
     padding: 10px;
 }
 
-.itemCabecalho h1 {
-    font-size: 25px;
-}
-
-.itemCabecalho p {
-    font-size: 15px;
-}
-
-.itemCabecalho a {
-    color: white;
+/* GRID */
+.itemsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 colunas */
+  gap: 20px;
+  margin-top: 20px;
 }
 
 .itemContainer {
-    display: flex;
-    justify-content: left;
-    padding-left: 40px;
+  display: flex;
+  justify-content: center;
 }
 
+/* CARD */
 .itemBox {
     display: flex;
     flex-direction: column;
@@ -38,9 +46,10 @@
     height: auto;
     background-color: #3b2415; /* marrom escuro */
     border-radius: 12px;
-    padding: 40px;
+    padding: 20px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
 }
 
 .itemBox:hover {
@@ -50,6 +59,7 @@
 
 .itemBox img {
     width: 100%;
+    height: 160px;
     border-radius: 10px;
     object-fit: cover;
     transition: transform 0.3s ease;
@@ -59,9 +69,8 @@
     transform: scale(1.05);
 }
 
+/* INFORMAÇÕES DO CARD */
 .itemInformations {
-    width: 300px;
-    text-align: center;
     margin-top: 15px;
     color: #f5f5f5;
 }
@@ -84,6 +93,7 @@
     color: #e0d4c0;
 }
 
+/* BOTÃO CARRINHO */
 .cartButton {
     width: 100%;
     margin-top: 15px;
@@ -92,7 +102,7 @@
 .cartButton button {
     width: 100%;
     padding: 12px;
-    background-color: #f4d03f; /* amarelo destacado */
+    background-color: #f4d03f; /* amarelo */
     color: #3b2415;
     font-weight: bold;
     border: none;
@@ -102,10 +112,11 @@
 }
 
 .cartButton button:hover {
-    background-color: #fff176; /* amarelo mais claro no hover */
+    background-color: #fff176;
     transform: translateY(-2px);
 }
 
+/* BOTÃO ADMIN */
 .adminButtons button {
     width: 200px;
     height: 40px;
@@ -120,4 +131,17 @@
 .adminButtons button:hover {
     background-color: rgb(48, 18, 3);
     color: white;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 1024px) {
+  .itemsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .itemsGrid {
+    grid-template-columns: 1fr;
+  }
 }
