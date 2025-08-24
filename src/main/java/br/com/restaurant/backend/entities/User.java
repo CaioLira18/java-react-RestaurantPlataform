@@ -2,7 +2,6 @@ package br.com.restaurant.backend.entities;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import br.com.restaurant.backend.entities.enums.UserRole;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -30,6 +29,10 @@ public class User {
     private String email;
     private String cpf;
     private String password;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "tb_user_cards", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "card_id"))
+    List<Cards> cards = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "tb_user_carrrinho", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "carrrinho_id"))
