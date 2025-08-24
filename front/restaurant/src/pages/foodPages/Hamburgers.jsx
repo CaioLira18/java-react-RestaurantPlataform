@@ -9,39 +9,18 @@ const Hamburgers = () => {
 
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
-
         if (storedUser) {
             try {
                 const parsedUser = JSON.parse(storedUser);
-
-                fetch(`${API_URL}/users`)
-                    .then((res) => res.json())
-                    .then((allUsers) => {
-                        const fullUser = allUsers.find(user => user.id === parsedUser.id);
-
-                        if (fullUser) {
-                            console.log('👤 Usuário encontrado:', fullUser);
-                            setIsAuthenticated(true);
-                            setIsAdmin(fullUser.role === 'ADMIN');
-                        } else {
-                            localStorage.removeItem("user");
-                            setIsAuthenticated(false);
-                            setIsAdmin(false);
-                        }
-                    })
-                    .catch((err) => {
-                        console.error("Erro ao buscar usuários:", err);
-                        localStorage.removeItem("user");
-                        setIsAuthenticated(false);
-                        setIsAdmin(false);
-                    });
-            } catch (parseError) {
-                localStorage.removeItem("user");
+                setIsAuthenticated(true);
+                setIsAdmin(parsedUser.role === 'ADMIN');
+                setName(parsedUser.name || '');
+            } catch (err) {
+                console.error("Erro ao processar usuário do localStorage", err);
             }
-        } else {
-            console.log('❌ Nenhum usuário encontrado no localStorage');
         }
     }, []);
+
 
     useEffect(() => {
         fetch(`${API_URL}/items`)

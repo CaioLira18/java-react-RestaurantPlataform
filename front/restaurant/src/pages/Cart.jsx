@@ -9,59 +9,23 @@ const Cart = () => {
 
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
-
         if (storedUser) {
             try {
                 const parsedUser = JSON.parse(storedUser);
-
-                fetch(`http://localhost:8080/api/users`)
-                    .then((res) => {
-                        return res.json();
-                    })
-                    .then((allUsers) => {
-                        const fullUser = allUsers.find(user => user.id === parsedUser.id);
-
-                        if (fullUser) {
-                            console.log('👤 Usuário encontrado:', fullUser);
-                            console.log('📋 Detalhes do usuário:');
-                            console.log('  - ID:', fullUser.id);
-                            console.log('  - Nome:', fullUser.name);
-                            console.log('  - Email:', fullUser.email);
-                            console.log('  - Role:', fullUser.role);
-                            console.log('  - É Admin?', fullUser.role === 'ADMIN');
-
-                            setIsAuthenticated(true);
-                            setIsAdmin(fullUser.role === 'ADMIN');
-                            setName(fullUser.name || '');
-                            setListFavorites(fullUser.carrinho || []); // Corrigido: carrinho
-                            setUserId(fullUser.id);
-                        } else {
-                            localStorage.removeItem("user");
-                            setIsAuthenticated(false);
-                            setIsAdmin(false);
-                            setName('');
-                        }
-                    })
-                    .catch((error) => {
-                        console.error('Error fetching users:', error);
-                        localStorage.removeItem("user");
-                        setIsAuthenticated(false);
-                        setIsAdmin(false);
-                        setName('');
-                    });
-            } catch (parseError) {
-                console.error('Error parsing user data:', parseError);
-                localStorage.removeItem("user");
+                setIsAuthenticated(true);
+                setIsAdmin(parsedUser.role === 'ADMIN');
+                setName(parsedUser.name || '');
+            } catch (err) {
+                console.error("Erro ao processar usuário do localStorage", err);
             }
-        } else {
-            console.log('❌ Nenhum usuário encontrado no localStorage');
         }
     }, []);
+
 
     const removeFromCart = async (itemId) => {
         console.log('🗑️ Tentando remover item com ID:', itemId);
         console.log('👤 ID do usuário:', userId);
-        
+
         try {
             // Remove do estado local primeiro (para UX mais rápida)
             const originalCart = [...listFavorites]; // Salva o estado original
@@ -87,10 +51,10 @@ const Cart = () => {
                 const updatedUser = await response.json();
                 console.log('✅ Resposta do servidor:', updatedUser);
                 console.log('📦 Carrinho atualizado no servidor:', updatedUser.carrinho);
-                
+
                 // Atualiza com os dados reais do servidor
                 setListFavorites(updatedUser.carrinho || []);
-                
+
                 // Atualiza o localStorage também
                 const storedUser = localStorage.getItem('user');
                 if (storedUser) {
@@ -106,7 +70,7 @@ const Cart = () => {
                         console.error('❌ Erro ao atualizar localStorage:', error);
                     }
                 }
-                
+
                 console.log('🎉 Item removido do carrinho com sucesso!');
             }
         } catch (error) {
@@ -141,7 +105,7 @@ const Cart = () => {
                                     <h3>R$ {favorite.price}</h3>
                                     <h3>Quantidade: 1x</h3>
                                     <div className="removeButton">
-                                        <button 
+                                        <button
                                             onClick={() => removeFromCart(favorite.id)}
                                             className='buttonRemove'
                                         >
@@ -153,7 +117,7 @@ const Cart = () => {
                             </div>
                         </div>
                     ))}
-                    
+
                     <div className="informationsTotal">
                         <h1>Total do Carrinho: R$ {calculateTotal()}</h1>
                         <div className="checkoutButton">
