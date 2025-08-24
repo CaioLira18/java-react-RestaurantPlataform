@@ -6,6 +6,8 @@ const Home = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [name, setName] = useState('');
   const [items, setItems] = useState([]);
+  const [currentUser, setCurrentUser] = useState(null);
+
 
 
   const API_URL = "http://localhost:8080/api";
@@ -18,6 +20,7 @@ const Home = () => {
         setIsAuthenticated(true);
         setIsAdmin(parsedUser.role === 'ADMIN');
         setName(parsedUser.name || '');
+        setCurrentUser(parsedUser); // 👈 salva o user completo
       } catch (err) {
         console.error("Erro ao processar usuário do localStorage", err);
       }
@@ -74,9 +77,10 @@ const Home = () => {
     }
   }
 
+
   return (
     <div>
-     
+
       {isAdmin && (
         <div className="adminButtons">
           <a href="/adicionarItem"><button>Adicionar Produto</button></a>

@@ -15,11 +15,14 @@ const Cart = () => {
                 setIsAuthenticated(true);
                 setIsAdmin(parsedUser.role === 'ADMIN');
                 setName(parsedUser.name || '');
+                setUserId(parsedUser.id || null); // 👈 salva o ID
+                setListFavorites(parsedUser.carrinho || []); // 👈 carrega o carrinho
             } catch (err) {
                 console.error("Erro ao processar usuário do localStorage", err);
             }
         }
     }, []);
+
 
 
     const removeFromCart = async (itemId) => {
