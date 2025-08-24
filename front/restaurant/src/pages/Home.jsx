@@ -6,7 +6,7 @@ const Home = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [name, setName] = useState('');
   const [items, setItems] = useState([]);
-  const [currentUser, setCurrentUser] = useState(null);
+
 
   const API_URL = "http://localhost:8080/api";
 
